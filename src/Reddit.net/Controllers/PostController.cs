@@ -33,5 +33,34 @@ namespace Reddit.net.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+
+        [Route("s/{sName}/{id}")]
+        public IActionResult ViewPost(string sName, Guid id)
+        {
+            Guid sid = Guid.Empty;
+            var subnets = db.Subnets;
+            foreach (var subnet in subnets)
+            {
+                if (subnet.Name == sName)
+                {
+                    sid = subnet.Id;
+                }
+            }
+            if (sid == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+            var post = db.Posts.Find(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            if (sName != post.Subnet)
+            {
+                return NotFound();
+            }
+            return View("ViewPost", post);
+        }
     }
 }
