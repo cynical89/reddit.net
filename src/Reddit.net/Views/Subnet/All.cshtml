@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Reddit.NET - View Subnets";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Reddit.net.Models
+
+<div class="col-sm-12">
+    <h3>Subnets:</h3><br/>
+    @foreach (var subnet in (IEnumerable<SubnetModel>)ViewData["subnets"])
+    {
+        <div>
+            <span class="span-item">
+                <a href="#"><h4 class="list-group-item-heading">@subnet.Name</h4></a>
+            </span>
+        </div>
+        <br />
+    }
+</div>

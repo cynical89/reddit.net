@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Reddit.net.Models;
 
 namespace Reddit.net.Controllers

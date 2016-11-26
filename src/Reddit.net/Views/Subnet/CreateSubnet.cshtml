@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Reddit.NET - Create Subnet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Reddit.net.Models.SubnetModel
+
+<h2>Create a new subnet</h2>
+
+<hr />
+
+@using (Html.BeginForm("CreateSubnet", "Subnet"))
+{
+    <input type="hidden" name="UserName" value="@User.Identity.Name" />
+
+    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 move-down">
+        @Html.TextBoxFor(model => model.Name, new {required = "required"})
+    </div>
+
+    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 move-down">
+        @Html.TextBoxFor(model => model.Title, new { required = "required" })
+    </div>
+
+    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 move-down">
+        @Html.TextAreaFor(model => model.Description, new {required = "required"})
+    </div>
+
+    @Html.LabelFor(model => model.Sidebar, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 move-down">
+        @Html.TextAreaFor(model => model.Sidebar, new {required = "required"})
+    </div>
+
+    @Html.LabelFor(model => model.SubText, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 move-down">
+        @Html.TextAreaFor(model => model.SubText, new { required = "required" })
+    </div>
+
+    <input class="btn btn-default" type="submit" value="Create Subnet" />
+}
