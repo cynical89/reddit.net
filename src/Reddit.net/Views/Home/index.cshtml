@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNetCore.Razor.Chunks
+@using Reddit.net.Models
+@using Reddit.net.ViewModels
+@{
+    ViewData["Title"] = "Reddit.NET";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-sm-12"><br/></div>
+    <!-- Content Area -->
+    <div class="col-sm-9">
+        <h4>Recent Posts:</h4>
+        <div id="content" class="list-group">
+            @foreach (var post in (IEnumerable<PostModel>)ViewData["posts"])
+            {
+                <div>
+                    <span class="span-item first-span">
+                        <a href="#" class="votebtn"><i class="fa fa-arrow-up"></i><br /></a>
+                        @post.Reputation<br />
+                        <a href="#" class="votebtn"><i class="fa fa-arrow-down"></i></a>
+                    </span>
+                    <span class="span-item">
+                        <a href="#"><h4 class="list-group-item-heading">@post.Title</h4></a>
+                        <p class="list-group-item-text text-muted">
+                            <small>Posted at @post.TimeAndDate by <a href="#">-user-</a> in <a href="#">/s/@post.Subnet</a></small>
+                        </p>
+                        <p class="list-group-item-text text-muted">
+                            <small><a href="#">@post.Comments comments</a> 
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a href="#">report</a>
+                            }
+                            </small>
+                        </p>
+                    </span>
+                </div>
+                <br/>
+            }
+        </div>
+    </div>
+    <!-- End Content Area-->
+    <!-- Right hand side bar-->
+<div class="col-sm-3">
+    @using Reddit.net.ViewModels
+
+    @model LoginViewModel
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+
+        @using (Html.BeginForm("Login", "Account"))
+         {
+             <div class="input-group">
+                 @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", @placeholder = "Username"})
+
+                 @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Password"})
+             </div>
+             <input type="submit" value="Log in" class="btn btn-success pull-right"/>
+             <p><br/><a href="#"><small>Reset Password</small></a>
+             </p>
+             <br/>
+         }
+
+    }
+
+    <div>
+        <a class="btn btn-block btn-primary" href="/CreatePost">Create a new Post</a><br/>
+        <a class="btn btn-block btn-primary" href="#">Create a new Subnet</a>
+
+    </div>
+</div>
+<!-- End right hand sidebar-->

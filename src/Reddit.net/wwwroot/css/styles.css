@@ -1,0 +1,52 @@
+﻿html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 50px;
+  padding-top: 50px;
+}
+.template-heading {
+  padding: 40px 15px;
+}
+.nav-text {
+    color: white;
+}
+.navbar-inverse .btn-link {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.navbar-inverse .btn-link:hover {
+    color: #23527c;
+    text-decoration: underline;
+}
+
+.span-item {
+	display: inline-block;
+}
+
+.first-span {
+    width: 50px;
+    text-align: center;
+}
+
+.votebtn {
+    color: black;
+    text-decoration: none;
+}
+
+.votebtn:hover {
+    color: grey;
+    text-decoration: none;
+}
+
+@media (min-width: 768px) {
+    .nav-text {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 20px;
+}
+}

@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Reddit.NET - Create Post";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Reddit.net.Models.PostModel
+
+<h2>Create a new post</h2>
+
+<hr />
+
+@using (Html.BeginForm("CreatePost", "Post"))
+{
+    <input type="hidden" name="UserName" value="@User.Identity.Name" />
+
+    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 move-down">
+        @Html.TextBoxFor(model => model.Title, new { required = "required" })
+    </div>
+
+    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10 move-down">
+        @Html.TextAreaFor(model => model.Content, new { required = "required" })
+    </div>
+
+    <input class="btn btn-default" type="submit" value="Create Post" />
+}

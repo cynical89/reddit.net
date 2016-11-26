@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Reddit.NET - Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Reddit.net.ViewModels
+
+@model LoginViewModel
+
+<div class="container">
+    <h3>Please log in to your account to add content</h3>
+
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.LabelFor(m => m.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 move-down">
+            @Html.TextBoxFor(m => m.UserName)
+        </div>
+
+        @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password)
+        </div>
+
+        <input type="submit" value="Log in" class="btn btn-default" />
+    }
+
+    <br />
+
+    <h4><strong>Don't have an account?</strong></h4>
+    @Html.ActionLink("Click here to sign up", "Register", "Account")
+</div>

@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Reddit.NET - Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using Reddit.net.ViewModels
+
+@model RegisterViewModel
+
+<div class="container">
+    <h2>Register a new account</h2>
+    <hr />
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.LabelFor(m => m.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 move-down">
+            @Html.TextBoxFor(m => m.UserName)
+        </div>
+
+        @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 move-down">
+            @Html.TextBoxFor(m => m.Email)
+        </div>
+
+        @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 move-down">
+            @Html.PasswordFor(m => m.Password)
+        </div>
+
+        @Html.LabelFor(m => m.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10 move-down">
+            @Html.PasswordFor(m => m.ConfirmPassword)
+        </div>
+        <div class="col-md-8">
+            <input type="submit" value="Register" class="btn btn-default " />
+        </div>
+    }
+</div>
