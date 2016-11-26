@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Reddit.net.Models
 {
     public class SubnetModel
     {
         [Key]
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "Please enter a Subnet name.")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Please enter a Subnet title.")]

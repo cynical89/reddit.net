@@ -14,13 +14,21 @@ body {
     color: white;
 }
 .navbar-inverse .btn-link {
-    color: #337ab7;
-    text-decoration: none;
+    color: #1995dc;
+    text-decoration: underline;
 }
 
 .navbar-inverse .btn-link:hover {
-    color: #23527c;
+    color: white;
+}
+
+.nav-text a {
+    color: #1995dc;
     text-decoration: underline;
+}
+
+.nav-text a:hover {
+    color: white;
 }
 
 .span-item {
@@ -40,6 +48,10 @@ body {
 .votebtn:hover {
     color: grey;
     text-decoration: none;
+}
+.nogreen {
+    color: #325d88;
+    text-decoration: underline;
 }
 
 @media (min-width: 768px) {

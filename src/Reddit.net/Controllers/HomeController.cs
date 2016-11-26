@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Reddit.net.Models;
@@ -10,24 +13,17 @@ namespace Reddit.net.Controllers
     {
         // GET: /<controller>/
         private readonly RnDbContext db = new RnDbContext();
+        private readonly UserManager<UserModel> _userManager;
+
+        public HomeController(UserManager<UserModel> userManager)
+        {
+            _userManager = userManager;
+        }
         public IActionResult Index()
         {
             var subnets = db.Posts.OrderByDescending(x => x.TimeAndDate);
                 ViewData["posts"] = subnets;
                 return View();
-        }
-
-        [Route("/allposts")]
-        public IActionResult AllPosts()
-        {
-            var subnets = db.Posts.OrderByDescending(x => x.TimeAndDate);
-            var jsonData = JsonConvert.SerializeObject(subnets);
-            if (jsonData != null)
-            {
-                return Ok(jsonData);
-            }
-
-            return NotFound();
         }
 
         [Authorize]
@@ -46,6 +42,14 @@ namespace Reddit.net.Controllers
                 return RedirectToAction("Index");
             }
             return View(topic);
+        }
+        [Route("/vote")]
+        [HttpPost]
+        public IActionResult Vote(VoteModel vote)
+        {
+            var userId = _userManager.GetUserId(User);
+            vote.UserId = Guid.Parse(userId);
+            return Ok(vote);
         }
     }
 }

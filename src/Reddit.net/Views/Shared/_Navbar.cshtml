@@ -2,7 +2,8 @@
 
 }
 @using Microsoft.AspNetCore.Mvc.ViewFeatures
-<nav class="navbar navbar-inverse navbar-fixed-top">
+@using Reddit.net.Models
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -26,10 +27,10 @@
         <div id="navbar" class="navbar-collapse collapse">
             @if (User.Identity.IsAuthenticated)
             {
-                            @using (Html.BeginForm("LogOff", "Account"))
-                            {
-                                <p class="nav-text pull-right">@User.Identity.Name (0) - <input type="submit" name="logoutbutton" value="Logout" class="btn-link"></p>
-                 }
+                @using (Html.BeginForm("LogOff", "Account"))
+                {
+                    <p class="nav-text pull-right"><small>@User.Identity.Name (0) - <input type="submit" name="logoutbutton" value="Logout" class="btn-link"></small></p>
+                }
             }
             else
             {
@@ -39,3 +40,6 @@
         </div>
     </div>
 </nav>
+<script>
+    const username = "@User.Identity.Name";
+</script>
