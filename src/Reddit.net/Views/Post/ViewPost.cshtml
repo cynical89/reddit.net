@@ -14,4 +14,53 @@
     <strong>post title: @post.Title </strong><br /><br/>
     <strong>post content: @post.Content </strong>
 
+    <br/><br/>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#commentModal"><Small>Leave Comment</Small></button>
+    }
+    else
+    {
+        <small>Please @Html.ActionLink("login", "Login", "Account") to leave a comment!</small>
+    }
+    <br/><br/>
+
+    @foreach (var comment in (IEnumerable<CommentModel>) ViewData["comments"])
+    {
+        <strong>Comment: @comment.Content</strong><br/>
+        <small>Posted by: @comment.User</small><hr/>
+
+    }
+
+    @using (Html.BeginForm("CreateComment", "Comment"))
+{
+    <div class="bd-comment">
+        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="commentModalLabel">New Comment</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="hidden" name="User" value="@User.Identity.Name"/>
+                            <input type="hidden" name="ParentPost" value="@post.Id"/>
+                            <div class="form-group">
+                                <label for="message-text" class="form-control-label">Message:</label>
+                                <textarea class="form-control" id="message-text" name="Content"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input id="commentSubmitButton" type="submit" value="Send message" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 </div>

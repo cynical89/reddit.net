@@ -7,7 +7,7 @@ namespace Reddit.net.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public string ParentPost { get; set; }
+        public Guid ParentPost { get; set; }
         public string User { get; set; }
         [Required(ErrorMessage = "You can't leave an empty comment.")]
         public string Content { get; set; }

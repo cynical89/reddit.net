@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reddit.net.Models;
@@ -60,6 +61,18 @@ namespace Reddit.net.Controllers
             {
                 return NotFound();
             }
+
+            List<CommentModel> comObject = new List<CommentModel>();
+            var comments = db.Comments;
+            foreach (var comment in comments)
+            {
+                if (comment.ParentPost == post.Id)
+                {
+                    comObject.Add(comment);
+                }
+            }
+
+            ViewData["comments"] = comObject;
             ViewData["post"] = post;
             return View("ViewPost");
         }
