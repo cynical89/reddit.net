@@ -131,7 +131,7 @@ namespace Reddit.net.Migrations
                     b.Property<string>("Content")
                         .IsRequired();
 
-                    b.Property<string>("ParentPost");
+                    b.Property<Guid>("ParentPost");
 
                     b.Property<int>("Reputation");
 
@@ -211,7 +211,7 @@ namespace Reddit.net.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<DateTime>("DateofBirth");
+                    b.Property<DateTime>("DateOfBirth");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -253,6 +253,24 @@ namespace Reddit.net.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Reddit.net.Models.VoteModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ContentId");
+
+                    b.Property<int>("Point");
+
+                    b.Property<int>("Type");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Votes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

@@ -62,7 +62,8 @@ namespace Reddit.net.Migrations
                     Content = table.Column<string>(nullable: false),
                     Reputation = table.Column<int>(nullable: false),
                     Subnet = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: false)
+                    Title = table.Column<string>(nullable: false),
+                    TimeAndDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

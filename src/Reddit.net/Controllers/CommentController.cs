@@ -14,6 +14,10 @@ namespace Reddit.net.Controllers
         public IActionResult CreateComment(CommentModel model)
         {
             model.Id = new Guid();
+
+            var post = db.Posts.Find(model.ParentPost);
+            post.Comments += 1;
+            db.Posts.Update(post);
             
             db.Comments.Add(model);
             db.SaveChanges();

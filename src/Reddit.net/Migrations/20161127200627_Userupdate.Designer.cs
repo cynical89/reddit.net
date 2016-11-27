@@ -8,8 +8,8 @@ using Reddit.net.Models;
 namespace Reddit.net.Migrations
 {
     [DbContext(typeof(RnDbContext))]
-    [Migration("20161125092505_Update1")]
-    partial class Update1
+    [Migration("20161127200627_Userupdate")]
+    partial class Userupdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,10 +26,10 @@ namespace Reddit.net.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
@@ -132,7 +132,7 @@ namespace Reddit.net.Migrations
                     b.Property<string>("Content")
                         .IsRequired();
 
-                    b.Property<string>("ParentPost");
+                    b.Property<Guid>("ParentPost");
 
                     b.Property<int>("Reputation");
 
@@ -171,13 +171,16 @@ namespace Reddit.net.Migrations
 
             modelBuilder.Entity("Reddit.net.Models.SubnetModel", b =>
                 {
-                    b.Property<string>("Name")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Description")
                         .IsRequired();
 
                     b.Property<int>("Language");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<bool>("Over18Only");
 
@@ -194,7 +197,7 @@ namespace Reddit.net.Migrations
 
                     b.Property<bool>("VisibleInAll");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.ToTable("Subnets");
                 });
@@ -209,8 +212,10 @@ namespace Reddit.net.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("DateOfBirth");
+
                     b.Property<string>("Email")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -219,10 +224,10 @@ namespace Reddit.net.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
 
@@ -230,12 +235,14 @@ namespace Reddit.net.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
+                    b.Property<int>("Reputation");
+
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasAnnotation("MaxLength", 256);
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
@@ -247,6 +254,24 @@ namespace Reddit.net.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Reddit.net.Models.VoteModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ContentId");
+
+                    b.Property<int>("Point");
+
+                    b.Property<int>("Type");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Votes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
