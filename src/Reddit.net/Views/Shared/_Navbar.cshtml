@@ -14,14 +14,7 @@
             </button>
             <a class="navbar-brand" href="/">Reddit.NET</a>
             <ul class="nav navbar-nav">
-                @if (ViewData["disableSubnetLink"] != null)
-                {
-
-                }
-                else
-                {
-                    <li><a class="navbar-link" href="s/all"><small>Subnets</small></a></li>
-                }
+                    <li>@Html.ActionLink("Subnets", "All", "Subnet")</a></li>
             </ul>
         </div>
         <div id="navbar" class="navbar-collapse collapse">

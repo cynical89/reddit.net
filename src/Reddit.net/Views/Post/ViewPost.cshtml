@@ -1,18 +1,17 @@
-﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+﻿@using Reddit.net.Models
 @{
-    ViewData["Title"] = "Reddit.NET - Create Post";
+    ViewData["Title"] = "Reddit.NET - View Post";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var post = (PostModel)ViewData["post"];
 }
-
-@model Reddit.net.Models.PostModel
 
 <div class="col-sm-12">
     
-    <h3>View Post - /s/@Html.DisplayFor(modelItem => Model.Subnet)/@Html.DisplayFor(modelItem => Model.Title)</h3>
+    <h3>View Post - /s/@post.Subnet/@post.Id</h3>
 
     <hr/>
 
-    <strong>post title: @Html.DisplayFor(modelItem => Model.Title) </strong><br /><br/>
-    <strong>post content: @Html.DisplayFor(modelItem => Model.Content) </strong>
+    <strong>post title: @post.Title </strong><br /><br/>
+    <strong>post content: @post.Content </strong>
 
 </div>

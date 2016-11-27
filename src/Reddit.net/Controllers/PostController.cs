@@ -60,7 +60,8 @@ namespace Reddit.net.Controllers
             {
                 return NotFound();
             }
-            return View("ViewPost", post);
+            ViewData["post"] = post;
+            return View("ViewPost");
         }
     }
 }

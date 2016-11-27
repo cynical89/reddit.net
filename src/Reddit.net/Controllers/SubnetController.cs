@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +12,39 @@ namespace Reddit.net.Controllers
     {
         private readonly RnDbContext db = new RnDbContext();
 
-        [Route("s/all")]
+        [Route("/s/all")]
         [HttpGet]
         public IActionResult All()
         {
             var subnets = db.Subnets;
             ViewData["subnets"] = subnets;
-            ViewData["disableSubnetLink"] = true;
             return View();
+        }
+
+        [Route("s/{id}")]
+        public IActionResult ViewSubnet(string id)
+        {
+            List<PostModel> postObject = new List<PostModel>();
+            var posts = db.Posts;
+            foreach (var post in posts)
+            {
+                if (post.Subnet == id)
+                {
+                    postObject.Add(post);
+                }
+            }
+            var subnets = db.Subnets;
+            foreach (var subnet in subnets)
+            {
+                if (subnet.Name == id)
+                {
+                    ViewData["posts"] = postObject;
+                    ViewData["subnet"] = subnet;
+                    return View("ViewSubnet");
+                }
+            }
+            return NotFound();
+            
         }
 
         [Route("CreateSubnet")]

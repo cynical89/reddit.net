@@ -1,0 +1,51 @@
+﻿@using System.Collections
+@using Reddit.net.Models
+@{
+    ViewData["Title"] = "Reddit.NET - View Subnet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var subnet = (SubnetModel)ViewData["subnet"];
+}
+
+<div class="col-sm-12">
+    <h3>View Posts for - /s/@subnet.Name
+    <p class="lead"><small>/s/@subnet.Description</small></p>
+
+    <hr />
+
+    <div id="content">
+
+        @foreach (var post in (IEnumerable<PostModel>)ViewData["posts"])
+            {
+            <div>
+                <span class="span-item first-span">
+                    @using (Html.BeginForm("Vote", "Home"))
+                    {
+                        <input type="hidden" name="ContentId" value="@post.Id" />
+                            <input type="hidden" name="Type" value="@VoteModel.ContentType.Post" />
+                            <button id="upvote" type="submit" class="btn-link fa fa-arrow-up votebtn" name="Point" value="1"></button>
+                            <div>@post.Reputation<br /></div>
+                            <button id="dnvote" type="submit" class="btn-link fa fa-arrow-down votebtn" name="Point" value="-1"></button>
+                            <add key="webpages:Enabled" value="false" />
+                    }
+                </span>
+                <span class="span-item">
+                    <a class="nogreen" href="@post.Subnet/@post.Id"><h4 class="list-group-item-heading">@post.Title</h4></a>
+                    <p class="list-group-item-text text-muted">
+                        <small>Posted at @post.TimeAndDate by <a href="#">-user-</a> in <a href="#">/s/@post.Subnet</a></small>
+                    </p>
+                    <p class="list-group-item-text text-muted">
+                        <small>
+                            <a href="#">@post.Comments comments</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a href="#">report</a>
+                            }
+                        </small>
+                    </p>
+                </span>
+            </div>
+                <br />
+        }
+
+                </div>
+               </div>

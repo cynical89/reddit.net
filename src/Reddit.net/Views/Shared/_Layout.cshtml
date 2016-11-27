@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Reddit.net.ViewModels
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -14,9 +15,42 @@
 
 <div class="container-fluid">
     <div class="row">
-        @RenderBody()
+        <div class="col-sm-9">
+            @RenderBody()
+        </div>
+        <!-- End Content Area-->
+        <!-- Right hand side bar-->
+        <div class="col-sm-3">
+
+            @if (!User.Identity.IsAuthenticated)
+            {
+                @model LoginViewModel
+
+                @using (Html.BeginForm("Login", "Account"))
+                 {
+                     <div class="input-group">
+                         @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", @placeholder = "Username"})
+
+                         @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Password"})
+                     </div>
+                     <input id="userLoginButton" type="submit" value="Log in" class="btn btn-default pull-right"/>
+                     <p>
+                         <br/><a href="#"><small>Reset Password</small></a>
+                     </p>
+                     <br/>
+                 }
+
+            }
+
+            <div>
+                <a class="btn btn-block btn-primary" href="CreatePost">Create a new Post</a><br/>
+                <a class="btn btn-block btn-primary" href="CreateSubnet">Create a new Subnet</a>
+
+            </div>
+        </div>
+        <!-- End right hand sidebar-->
     </div>
-</div>
+    </div>
 
 <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"></script>

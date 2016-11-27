@@ -1,78 +1,43 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Razor.Chunks
-@using Reddit.net.Models
-@using Reddit.net.ViewModels
+﻿@using Reddit.net.Models
 @{
     ViewData["Title"] = "Reddit.NET";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="col-sm-12"><br/></div>
-    <!-- Content Area -->
-    <div class="col-sm-9">
-        <h4>Recent Posts:</h4>
-        <div id="content" class="list-group">
-            @foreach (var post in (IEnumerable<PostModel>)ViewData["posts"])
+
+@model PostModel
+
+<div id="content" class="list-group">
+    <h4>Recent Posts:</h4>
+    @foreach (var post in (IEnumerable<PostModel>)ViewData["posts"])
             {
-                <div>
-                    <span class="span-item first-span">
-                        @using (Html.BeginForm("Vote", "Home"))
-                        {
-                            <input type="hidden" name="ContentId" value="@post.Id" />
-                            <input type="hidden" name="Type" value="@VoteModel.ContentType.Post"/>
+        <div>
+            <span class="span-item first-span">
+                @using (Html.BeginForm("Vote", "Home"))
+                {
+                    <input type="hidden" name="ContentId" value="@post.Id" />
+                            <input type="hidden" name="Type" value="@VoteModel.ContentType.Post" />
                             <button id="upvote" type="submit" class="btn-link fa fa-arrow-up votebtn" name="Point" value="1"></button>
                             <div>@post.Reputation<br /></div>
                             <button id="dnvote" type="submit" class="btn-link fa fa-arrow-down votebtn" name="Point" value="-1"></button>
                             <add key="webpages:Enabled" value="false" />
+                }
+            </span>
+            <span class="span-item">
+                <a class="nogreen" href="s/@post.Subnet/@post.Id"><h4 class="list-group-item-heading">@post.Title</h4></a>
+                <p class="list-group-item-text text-muted">
+                    <small>Posted at @post.TimeAndDate by <a href="#">-user-</a> in <a href="#">/s/@post.Subnet</a></small>
+                </p>
+                <p class="list-group-item-text text-muted">
+                    <small>
+                        <a href="#">@post.Comments comments</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="#">report</a>
                         }
-                    </span>
-                    <span class="span-item">
-                        <a class="nogreen" href="s/@post.Subnet/@post.Id"><h4 class="list-group-item-heading">@post.Title</h4></a>
-                        <p class="list-group-item-text text-muted">
-                            <small>Posted at @post.TimeAndDate by <a href="#">-user-</a> in <a href="#">/s/@post.Subnet</a></small>
-                        </p>
-                        <p class="list-group-item-text text-muted">
-                            <small><a href="#">@post.Comments comments</a> 
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <a href="#">report</a>
-                            }
-                            </small>
-                        </p>
-                    </span>
-                </div>
-                <br/>
-            }
+                    </small>
+                </p>
+            </span>
         </div>
-    </div>
-    <!-- End Content Area-->
-    <!-- Right hand side bar-->
-<div class="col-sm-3">
-    @using Reddit.net.ViewModels
-
-    @model LoginViewModel
-
-    @if (!User.Identity.IsAuthenticated)
-    {
-
-        @using (Html.BeginForm("Login", "Account"))
-         {
-             <div class="input-group">
-                 @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", @placeholder = "Username"})
-
-                 @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Password"})
-             </div>
-             <input type="submit" value="Log in" class="btn btn-default pull-right"/>
-             <p><br/><a href="#"><small>Reset Password</small></a>
-             </p>
-             <br/>
-         }
-
+                <br />
     }
-
-    <div>
-        <a class="btn btn-block btn-primary" href="CreatePost">Create a new Post</a><br/>
-        <a class="btn btn-block btn-primary" href="CreateSubnet">Create a new Subnet</a>
-
     </div>
-</div>
-<!-- End right hand sidebar-->
