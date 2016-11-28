@@ -1,6 +1,9 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Razor.TagHelpers
+@using Reddit.net.Models
+@{
     ViewData["Title"] = "Reddit.NET - Create Post";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var subnets = (IEnumerable<SubnetModel>)ViewData["subnets"];
 }
 
 @model Reddit.net.Models.PostModel
@@ -13,13 +16,25 @@
 {
     <input type="hidden" name="UserName" value="@User.Identity.Name" />
 
-    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10 move-down">
-        @Html.TextBoxFor(model => model.Title, new { required = "required" })
+    @Html.LabelFor(model => model.Title)
+    <div class="move-down">
+        @Html.TextBoxFor(model => model.Title, new {required = "required"})
     </div>
 
-    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10 move-down">
+    @Html.LabelFor(model => model.Subnet)
+    <div class="move-down">
+        <fieldset>
+            <select if="Subnet" name="Subnet">
+                @foreach (var subnet in subnets)
+                {
+                    <option value="@subnet.Name">@subnet.Name</option>
+                }
+            </select>
+        </fieldset>
+    </div>
+
+    @Html.LabelFor(model => model.Content)
+    <div class="move-down">
         @Html.TextAreaFor(model => model.Content, new { required = "required" })
     </div>
 

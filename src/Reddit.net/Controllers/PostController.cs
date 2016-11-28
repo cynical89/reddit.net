@@ -15,6 +15,8 @@ namespace Reddit.net.Controllers
         [HttpGet]
         public IActionResult CreatePost()
         {
+            var subnets = db.Subnets;
+            ViewData["subnets"] = subnets;
             return View("CreatePost");
         }
 
@@ -25,7 +27,6 @@ namespace Reddit.net.Controllers
         {
             post.Id = new Guid();
             post.Approved = true;
-            post.Subnet = "TESTING";
             post.Comments = 0;
             post.Reputation = 1;
             post.TimeAndDate = DateTime.Now;
