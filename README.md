@@ -1,2 +1,2 @@
 # reddit.net
-This is a reddit clone made with asp.net core
+This is a simplistic reddit-like website done in asp.net core
